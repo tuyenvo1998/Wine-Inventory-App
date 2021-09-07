@@ -1,8 +1,8 @@
 # Wine-Inventory-App
-// APP CONCEPT
+# APP CONCEPT
 Imagine that you are a wine and liquor lover, who is passionate about collecting different types of wine grapes from different regions. As the time goes by, the amount of wine and liquor bottles in your collection surprisingly increases and it is frustrating that you can’t find the perfect bottle in your own cellar because you do not remember where the exact bottle is stored, in which bottle hole or which bin. In addition, we all know that the taste of the wine and liquor gets better as it ages. However, if a bottle has been opened, it gets put away in random places and can’t be found when you want it.
-PURPOSE AND USE
+# PURPOSE AND USE
 Expensive wine and liquor end up going past prime, gifted wine and liquor bottles get put in random bottle holes that can not be found easily. On the other side, if you own a small winery business, wine and liquor bottle inventory management could be time consuming and requires a decent amount of manpower by manually counting how many bottles are left in stock, which one is running out or you want to check which bottles have been opened and put back in the cellars. That brings us the opportunity to work on solving your problem with managing your cellar collections. It will bring you a better experience in finding your lovely bottle, check its condition.
 Wine Inventory will be built to perform some tasks such as scan and add the wine and liquor bot- tles into the inventory with a specific cellar or bin location provided by the user along with its descriptions: color, origin, winery, vintage/year produced, styles: read/white/rose/sparking white/sparking rose. Its condition: opened or sealed, opened date, is it full, half or almost consumed. The app will help to mitigate the problems with locating the wine or liquor bottle, its condition, check to see if the bottle is getting expired(if the bottle is opened).
-INTENDED AUDIENCE
+# INTENDED AUDIENCE
 Wine Inventory app will be made mostly for personal and general uses and small business size use only. The final product will be publicly available on App Store or Google Play Store with my purchase required. In addition, this app is particularly designed per the requirements from Christopher Conly PhD.
