@@ -18,10 +18,8 @@ const Stack = createStackNavigator();
 // credentials context
 import { CredentialsContext } from './../components/CredentialsContext';
 
-const RootStack = () => {
+const RootStack = (props) => {
   return (
-    <CredentialsContext.Consumer>
-      {({ storedCredentials }) => (
         <NavigationContainer style={{ backgroundColor: 'red' }}>
           <Stack.Navigator
             screenOptions={{
@@ -36,14 +34,15 @@ const RootStack = () => {
               },
             }}
           >
-            {storedCredentials ? (
+            {props.user ? (
               <Stack.Screen
                 options={{
                   headerTintColor: primary,
                 }}
                 name="Welcome"
-                component={Welcome}
-              />
+              >
+            {() => <Welcome user={props.user} />}
+                </Stack.Screen>
             ) : (
               <>
                 <Stack.Screen name="Login" component={Login} />
@@ -52,8 +51,6 @@ const RootStack = () => {
             )}
           </Stack.Navigator>
         </NavigationContainer>
-      )}
-    </CredentialsContext.Consumer>
   );
 };
 

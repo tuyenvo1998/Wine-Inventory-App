@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "782673045288",
+    "firebase_url": "https://wine-inventory-cd5dc-default-rtdb.firebaseio.com",
+    "project_id": "wine-inventory-cd5dc",
+    "storage_bucket": "wine-inventory-cd5dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782673045288:android:96b6024816d1d80decd21d",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782673045288-sr5a518k6iuig07olj9hu7i1o8jmq71i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "host.exp.exponent",
+            "certificate_hash": "7c4b244d63d047c6a83e84d0fc051d6e199340de"
+          }
+        },
+        {
+          "client_id": "782673045288-d6b954ru8um2ea443q3re5mpbsn7dl02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj0y-BthePRhDq-_qbcsr4BgZ4e3rKFOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782673045288-d6b954ru8um2ea443q3re5mpbsn7dl02.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "782673045288-3m20vets1bcm0afp6b59voi6a668kqma.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

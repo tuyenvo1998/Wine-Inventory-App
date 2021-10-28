@@ -1,5 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
+import * as GoogleAuthentication from 'expo-google-app-auth'
+import firebase from 'firebase'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const signInWithGoogle = () => GoogleAuthentication.logInAsync({
+  androidClientId:  '782673045288-sr5a518k6iuig07olj9hu7i1o8jmq71i.apps.googleusercontent.com',
+  iosClientId:      '782673045288-3m20vets1bcm0afp6b59voi6a668kqma.apps.googleusercontent.com',
+  scopes: ['profile', 'email']
+}).then(result => {
+  if (result.type === 'success') {
+    const {idToken, accessToken} = result;
+    const credential = firebase.auth.GoogleAuthProvider.credential(idToken, accessToken)
+    return firebase.auth().signInWithCredential(credential).then(r => r.user)
+  }
+  return Promise.reject()
+}).catch(() => console.error("Sign in with Google cancelled."))
 
 // formik
 import { Formik } from 'formik';
@@ -60,7 +76,8 @@ const Login = ({ navigation }) => {
 
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
-    const url = 'https://whispering-headland-00232.herokuapp.com/user/signin';
+    firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+    /*const url = 'https://whispering-headland-00232.herokuapp.com/user/signin';
     axios
       .post(url, credentials)
       .then((response) => {
@@ -78,7 +95,8 @@ const Login = ({ navigation }) => {
         setSubmitting(false);
         handleMessage('An error occurred. Check your network and try again');
         console.log(error.toJSON());
-      });
+      });*/
+
   };
 
   const handleMessage = (message, type = '') => {
@@ -87,13 +105,13 @@ const Login = ({ navigation }) => {
   };
 
   const handleGoogleSignin = () => {
-    setGoogleSubmitting(true);
+    
+    /*setGoogleSubmitting(true);
     const config = {
       iosClientId: `782607156495-2de6ecovh62rsu1ec5cduv9li7g33ki3.apps.googleusercontent.com`,
       androidClientId: `782607156495-t08mgso56tjsp7und7lf81b2bmis239f.apps.googleusercontent.com`,
       scopes: ['profile', 'email'],
     };
-
     Google.logInAsync(config)
       .then((result) => {
         const { type, user } = result;
@@ -109,7 +127,9 @@ const Login = ({ navigation }) => {
         handleMessage('An error occurred. Check your network and try again');
         console.log(error);
         setGoogleSubmitting(false);
-      });
+      });*/
+      setGoogleSubmitting(true);
+      signInWithGoogle().then(r => {setGoogleSubmitting(false); persistLogin({...r}, 'Google signin successful', "SUCCESS")})
   };
 
   // Persisting login
