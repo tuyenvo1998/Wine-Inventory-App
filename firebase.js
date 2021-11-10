@@ -4,14 +4,19 @@ import * as firebase from "firebase";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCLA4vnLFaVow25ylLUkb57NhmnN6qk1vE",
-  authDomain: "fir-auth-65294.firebaseapp.com",
-  projectId: "fir-auth-65294",
-  storageBucket: "fir-auth-65294.appspot.com",
-  messagingSenderId: "105428798939",
-  appId: "1:105428798939:web:49a9375f32ea94d4dfebfe"
+const firebaseConfig = 
+{
+  apiKey: "AIzaSyCH5X_Qq0GuhyEqjIskcaqPbWEthg0YFrY",
+  authDomain: "wine-inventory-app.firebaseapp.com",
+  projectId: "wine-inventory-app",
+  storageBucket: "wine-inventory-app.appspot.com",
+  messagingSenderId: "755948651130",
+  appId: "1:755948651130:web:c215ce78355f85337831c3",
+  measurementId: "G-RDGRZJ72R2"
+
 };
+
+
 
 // Initialize Firebase
 let app;

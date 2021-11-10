@@ -16,7 +16,7 @@ const HomeScreen = () => {
   }
 
   return (
-    <ImageBackground source={require('./../assets/background.jpg')} style={styles.background}>
+    
       <View style={styles.container}>
         <Text>Email: {auth.currentUser?.email}</Text>
         <TouchableOpacity
@@ -26,7 +26,7 @@ const HomeScreen = () => {
           <Text style={styles.buttonText}>Sign out</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+
   )
 }
 
