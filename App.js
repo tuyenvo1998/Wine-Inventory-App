@@ -16,13 +16,14 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: true }} name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Testing" component={TestingScreen} />
-        <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Navigator >
+        {/* options={{ headerShown: false }}  USE THIS TO HIDE NAVIGATION HEADER */}
+        <Stack.Screen options={{ headerShown: false }, {}} name="Login" component={LoginScreen} /> 
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="Register" component={RegisterScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="Testing" component={TestingScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="Main" component={MainScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

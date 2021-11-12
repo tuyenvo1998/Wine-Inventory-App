@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Animated, TouchableWithoutFeedback, TouchableOpacity, ImageBackground } from "react-native";
+import { View,Button, Text, StyleSheet, Animated, TouchableWithoutFeedback, TouchableOpacity, ImageBackground } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/core';
 
@@ -81,6 +81,7 @@ export default class MainScreen extends React.Component {
 
         return (
             <ImageBackground source={require('./../assets/background.jpg')} style={styles.background}>
+                {/* <Button title="Back" onClick={() => this.props.navigation.goBack()} /> */}
                 <View style={[styles.container, this.props.style]}>
                     <TouchableWithoutFeedback>
                         <Animated.View style={[styles.button, styles.secondary, heartStyle, opacity]} >
