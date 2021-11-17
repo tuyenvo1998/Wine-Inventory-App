@@ -1,6 +1,7 @@
 import React from "react";
 import { TextInput as RNTextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons as MCI } from "@expo/vector-icons";
+import { Colors } from "../components/styles";
 
 export default function CustomTextInput({ icon, ...otherProps }) {
   const validationColor = "#223e4b";
@@ -17,7 +18,7 @@ export default function CustomTextInput({ icon, ...otherProps }) {
       }}
     >
       <View style={{ padding: 8 }}>
-        <MCI name={icon} color={validationColor} size={16} />
+        <MCI name={icon} color={Colors.brand} size={16} />
       </View>
       <View style={{ flex: 1 }}>
         <RNTextInput

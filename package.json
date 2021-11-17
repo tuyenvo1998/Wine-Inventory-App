@@ -25,6 +25,7 @@
     "react-native-image-picker-form": "^0.2.5",
     "react-native-keyboard-avoiding-view": "^1.0.0",
     "react-native-modal": "^13.0.0",
+    "react-native-neat-date-picker": "^1.1.2",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
     "react-native-web": "~0.13.12",
