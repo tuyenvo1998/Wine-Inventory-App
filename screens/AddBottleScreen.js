@@ -11,20 +11,14 @@ import {
   Button,
 } from "react-native";
 import { useFormik } from "formik";
+import DatePicker from "react-native-neat-date-picker";
 
 import CustomTextInput from "../components/CustomTextInput";
 import CustomButton from "../components/CustomButton";
 import { Colors } from "../components/styles";
 
 export default function AddBottle() {
-  const [status, setStatus] = useState(false);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState);
-    setStatus(!isEnabled); 
-  };
-
-  const { handleChange, handleSubmit, values } = useFormik({
+  const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
     initialValues: {
       bottleName: "",
       typeOfWine: "",
@@ -34,9 +28,52 @@ export default function AddBottle() {
     },
     onSubmit: (values) =>
       alert(
-        `Bottle name: ${values.bottleName}, Type of wine: ${values.typeOfWine}, Location: ${values.location}`
+        `Bottle name: ${values.bottleName}, Type of wine: ${values.typeOfWine}, Location: ${values.location}, Status: ${values.status}`
       ),
   });
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [showDate, setShowDate] = useState(false);
+  const [date, setDate] = useState("");
+
+  const toggleSwitch = () => {
+    if (isEnabled == false) {
+      setDate("");
+    }
+    setIsEnabled((previousState) => !previousState);
+    setFieldValue("status", !isEnabled);
+    setShowDatePicker(!isEnabled);
+  };
+
+  var months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const openDatePicker = () => {
+    setShowDatePicker(true);
+  };
+  const onCancel = () => {
+    setShowDatePicker(false);
+    setIsEnabled(false);
+  };
+  const onConfirm = (date) => {
+    setShowDatePicker(false);
+    var month = months[date.getMonth()];
+    var year = new Date().getFullYear(); // can't get year from this specific date picker
+    setDate(month + " " + date.getDate() + ", " + year);
+    setShowDate(true);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -79,6 +116,20 @@ export default function AddBottle() {
             value={isEnabled}
           />
           <Text style={styles.text}>Opened?</Text>
+          {showDate && isEnabled && (
+            <TouchableOpacity onPress={openDatePicker}>
+              <Text style={styles.textDate}>{date}</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.inputContainer}>
+          <DatePicker
+            isVisible={showDatePicker}
+            mode={"single"}
+            colorOptions={datePickerColors}
+            onCancel={onCancel}
+            onConfirm={onConfirm}
+          />
         </View>
         <View style={styles.buttonContainer}>
           <CustomButton label="Add" onPress={handleSubmit} />
@@ -87,6 +138,16 @@ export default function AddBottle() {
     </TouchableWithoutFeedback>
   );
 }
+
+const datePickerColors = {
+  headerColor: Colors.darkLight,
+  backgroundColor: Colors.primary,
+  selectedDateBackgroundColor: Colors.darkLight,
+  weekDaysColor: Colors.tertiary,
+  dateTextColor: Colors.tertiary,
+  changeYearModalColor: Colors.tertiary,
+  confirmButtonColor: Colors.darkLight,
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -122,6 +183,10 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "rgba(34, 62, 75, 0.7)",
+    padding: 10,
+  },
+  textDate: {
+    color: Colors.brand,
     padding: 10,
   },
   title: {
