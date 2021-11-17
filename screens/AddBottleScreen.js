@@ -21,15 +21,7 @@ export default function AddBottle() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
-    setStatus(isEnabled); // this shouldn't work but it does somehow for having status be correct
-    // console.log("isEnabled: " + isEnabled);
-    // console.log("Status: " + status);
-    // print();
-  };
-  const print = () => {
-    // console.log("- isEnabled: " + isEnabled);
-    // console.log("- Status: " + status);
-    // console.log("\n");
+    setStatus(!isEnabled); 
   };
 
   const { handleChange, handleSubmit, values } = useFormik({
