@@ -44,7 +44,7 @@ const BottleView = (props) => {
     return <TouchableOpacity style={styles.root}>
         <View style={styles.row}>
             <View style={styles.imageContainer}>
-                <Image source={{ uri: props.bottle.image }} style={styles.image} resizeMode="contain" />
+                <Image source={props.bottle.image ? { uri: props.bottle.image } : require('../assets/wine_bottle_2.webp')} style={styles.image} resizeMode="contain" />
             </View>
             <View style={styles.content}>
                 <View style={styles.nameContainer}>
