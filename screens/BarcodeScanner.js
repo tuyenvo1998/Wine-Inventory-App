@@ -16,7 +16,7 @@ const BarcodeScanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [barcodeText, setBarcodeText] = useState("Not yet scanned");
-  const [wineText, setWineText] = useState("");
+  const [wineText, setWineText] = useState("Unknown");
   const navigation = useNavigation();
 
   // Request camera permission
@@ -82,7 +82,9 @@ const BarcodeScanner = () => {
           <View style={{ alignItems: "center" }}>
             <View style={styles.containerText}>
               <Text style={styles.mainText}>Barcode: {barcodeText}</Text>
-              <Text style={styles.mainText}>Wine: Castello del Poggio</Text>
+              <Text style={styles.mainText}>
+                Wine: 19 Crimes Snoop Cali Red
+              </Text>
             </View>
             <View
               style={{

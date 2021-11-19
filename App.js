@@ -19,11 +19,6 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          options={{ headerShown: false }}
-          name="AddBottleScreen"
-          component={AddBottleScreen}
-        />
-        <Stack.Screen
           options={{ headerShown: true }}
           name="Login"
           component={LoginScreen}
@@ -34,11 +29,7 @@ export default function App() {
         <Stack.Screen name="Testing" component={TestingScreen} />
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
-        {/* <Stack.Screen
-          options={{ headerShown: false }}
-          name="AddBottleScreen"
-          component={AddBottleScreen}
-        /> */}
+        <Stack.Screen name="AddBottleScreen" component={AddBottleScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

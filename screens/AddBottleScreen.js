@@ -23,13 +23,23 @@ export default function AddBottle() {
       bottleName: "",
       typeOfWine: "",
       location: "",
+      vintage: "",
+      region: "",
+      pairings: "",
       status: false,
       dateOpened: "",
     },
-    onSubmit: (values) =>
-      alert(
-        `Bottle name: ${values.bottleName}, Type of wine: ${values.typeOfWine}, Location: ${values.location}, Status: ${values.status}`
-      ),
+    onSubmit: (values) => {
+      console.log(`Bottle name: ${values.bottleName}`);
+      console.log(`Type of wine: ${values.typeOfWine}`);
+      console.log(`Location: ${values.location}`);
+      console.log(`Vintage: ${values.vintage}`);
+      console.log(`Region: ${values.region}`);
+      console.log(`Pairings: ${values.pairings}`);
+      console.log(`Status: ${values.status}`);
+      console.log(`Date opened: ${values.dateOpened}`);
+      alert("Bottle added!");
+    },
   });
   const [isEnabled, setIsEnabled] = useState(false);
   const [showDate, setShowDate] = useState(false);
@@ -38,6 +48,7 @@ export default function AddBottle() {
   const toggleSwitch = () => {
     if (isEnabled == false) {
       setDate("");
+      setFieldValue("date", "");
     }
     setIsEnabled((previousState) => !previousState);
     setFieldValue("status", !isEnabled);
@@ -72,6 +83,7 @@ export default function AddBottle() {
     var month = months[date.getMonth()];
     var year = new Date().getFullYear(); // can't get year from this specific date picker
     setDate(month + " " + date.getDate() + ", " + year);
+    setFieldValue("dateOpened", date);
     setShowDate(true);
   };
 
@@ -105,6 +117,27 @@ export default function AddBottle() {
             icon="file-cabinet"
             placeholder="Location"
             onChangeText={handleChange("location")}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <CustomTextInput
+            icon="fruit-grapes"
+            placeholder="Vintage"
+            onChangeText={handleChange("vintage")}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <CustomTextInput
+            icon="earth"
+            placeholder="Region"
+            onChangeText={handleChange("region")}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <CustomTextInput
+            icon="food-steak"
+            placeholder="Pairing(s)"
+            onChangeText={handleChange("pairings")}
           />
         </View>
         <View style={styles.switchContainer}>
