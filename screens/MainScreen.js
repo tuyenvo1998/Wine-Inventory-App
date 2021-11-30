@@ -4,12 +4,13 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/core';
 import firebase from 'firebase';
 import BottleView from "../views/BottleView";
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export default class MainScreen extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = { bottles: null, refreshing: true }
+        this.state = { bottles: null }
         this.loadBottles = this.loadBottles.bind(this)
     }
 
@@ -29,15 +30,20 @@ export default class MainScreen extends React.Component {
 
     };
 
-    loadBottles() {
-        firebase.database().ref().child('storage').once('value', snap => {
-            let array = snap.val()
-            this.setState({ bottles: array, refreshing: false })
-        }, err => console.error(err))
+    loadBottles(snap) {
+        this.setState({bottles: snap.val()})
     }
 
     componentDidMount() {
-        this.loadBottles()
+        this.props.navigation.setOptions({
+            headerLeft: () => <Icon.Button name="sign-out-alt" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => firebase.auth().signOut().then(() => this.props.navigation.replace('Login'))}><Text style={{fontSize: 15}}/></Icon.Button>,
+            headerRight: () => <Icon.Button name="user-cog" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => { }}><Text style={{ fontSize: 15 }} /></Icon.Button>
+        })
+        firebase.database().ref().child('storage').on('value', this.loadBottles)
+    }
+
+    componentWillUnmount() {
+        firebase.database().ref().child('storage').off('value', this.loadBottles)
     }
 
     render() {
@@ -100,9 +106,7 @@ export default class MainScreen extends React.Component {
 
                 <SafeAreaView style={styles.safeArea}>
                     <View style={styles.listContainer}>
-                        <FlatList refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={() => {
-                            this.setState({ refreshing: true }, () => this.loadBottles())
-                        }} />} data={this.state.bottles || []} renderItem={({ item }) => <BottleView key={item.barcode} bottle={item} />} />
+                        <FlatList data={this.state.bottles || []} renderItem={({ item }) => <BottleView key={item.barcode} bottle={item} />} />
                     </View>
                 </SafeAreaView>
 
@@ -118,23 +122,6 @@ export default class MainScreen extends React.Component {
                             <Entypo name="text" size={20} color="#F02A4B" />
                         </Animated.View>
                     </TouchableWithoutFeedback>
-
-
-                    {/* <TouchableOpacity onPress= style={styles.button}>
-                        <Text style={styles.buttonText}>Login</Text>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={styles.buttonText}>Register</Text>
-                    </TouchableOpacity> */}
-
-                    {/* const navigation = useNavigation(); ======= NAVIGATION*/}
-
-                    {/* <TouchableWithoutFeedback>
-                        <Animated.View style={[styles.button, styles.secondary, pinStyle, opacity]}>
-                            <Entypo name="location-pin" size={20} color="#F02A4B" />
-                        </Animated.View>
-                    </TouchableWithoutFeedback> */}
 
                     <TouchableWithoutFeedback onPress={this.toggleMenu}>
                         <Animated.View style={[styles.button, styles.menu, rotation]}>
@@ -191,6 +178,6 @@ const styles = StyleSheet.create({
     listContainer: {
         flex: 1,
         paddingTop: 22,
-        margin: 10
+        marginHorizontal: 10
     }
 });
