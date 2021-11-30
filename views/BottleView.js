@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native"
 
@@ -41,7 +42,8 @@ const styles = StyleSheet.create({
 })
 
 const BottleView = (props) => {
-    return <TouchableOpacity style={styles.root}>
+    const navigation = useNavigation()
+    return <TouchableOpacity style={styles.root} onPress={() => navigation.navigate("Bottle Detail", {bottle: props.bottle})}>
         <View style={styles.row}>
             <View style={styles.imageContainer}>
                 <Image source={props.bottle.image ? { uri: props.bottle.image } : require('../assets/wine_bottle_2.webp')} style={styles.image} resizeMode="contain" />
