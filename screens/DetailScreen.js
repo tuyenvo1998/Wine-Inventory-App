@@ -5,10 +5,11 @@ import firebase from 'firebase';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 export default function DetailScreen(props) {
-    const navigation = useNavigation()
     const dimensions = useWindowDimensions()
     const image = { width: dimensions.width / 2, height: dimensions.width / 2 }
+    const barcode = props.route.params.barcode.toString()
     const [bottle, setBottle] = useState(null)
+    const reference = firebase.database().ref().child('storage').child(firebase.auth().currentUser.uid).child(barcode)
     let isFavorite = () => bottle.favorite === true || bottle.favorite === 'true'
     let isOpen = () => bottle.status === 'Opened'
     let dateString = () => {
@@ -18,48 +19,31 @@ export default function DetailScreen(props) {
     }
 
     const updateBottle = (snap) => {
-        let array = snap.val()
-        let selectedBottle = array.find(b => b.barcode.toString() === props.route.params.bottle.barcode.toString())
+        let selectedBottle = snap.val()
         selectedBottle && setBottle(selectedBottle)
     }
 
     useEffect(() => {
-        firebase.database().ref().child('storage').on('value', updateBottle)
-        return () => firebase.database().ref().child('storage').off('value', updateBottle)
+        reference.on('value', updateBottle)
+        return () => reference.off('value', updateBottle)
     }, [])
 
     const toggleFavorite = () => {
-        firebase.database().ref().child('storage').once('value', snap => {
-            let array = snap.val()
-            let index = array.findIndex(b => b.barcode.toString() === bottle.barcode.toString())
-            if (index < 0)
-                console.error('Bottle not found')
-            else {
-                array[index] = {...array[index], favorite: isFavorite() ? false : true}
-                firebase.database().ref().child('storage').set(array, err => {
-                    if (err) console.error(err)
-                })
-            }
+        reference.update({
+            favorite: !isFavorite()
         })
     }
 
     const setOpened = () => {
         if (isOpen())
             return
-        firebase.database().ref().child('storage').once('value', snap => {
-            let array = snap.val()
-            let index = array.findIndex(b => b.barcode.toString() === bottle.barcode.toString())
-            if (index < 0)
-                console.error('Bottle not found')
-            else {
-                let date = new Date()
-                let m = date.getMonth() + 1, d = date.getDate(), y = date.getFullYear()
-                let dateStr = `${m >= 10 ? m : `0${m}`}-${d}-${y}`
-                array[index] = { ...array[index], status: 'Opened', opened_data: dateStr, opened_date: dateStr }
-                firebase.database().ref().child('storage').set(array, err => {
-                    if (err) console.error(err)
-                })
-            }
+        let date = new Date()
+        let m = date.getMonth() + 1, d = date.getDate(), y = date.getFullYear()
+        let dateStr = `${m >= 10 ? m : `0${m}`}-${d}-${y}`
+        reference.update({
+            status: 'Opened',
+            opened_data: dateStr,
+            opened_date: dateStr
         })
     }
 

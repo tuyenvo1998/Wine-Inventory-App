@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
 const BottleView = (props) => {
     const navigation = useNavigation()
-    return <TouchableOpacity style={styles.root} onPress={() => navigation.navigate("Bottle Detail", {bottle: props.bottle})}>
+    return <TouchableOpacity style={styles.root} onPress={() => navigation.navigate("Bottle Detail", {barcode: props.bottle.barcode})}>
         <View style={styles.row}>
             <View style={styles.imageContainer}>
                 <Image source={props.bottle.image ? { uri: props.bottle.image } : require('../assets/wine_bottle_2.webp')} style={styles.image} resizeMode="contain" />
