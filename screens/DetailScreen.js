@@ -13,7 +13,7 @@ export default function DetailScreen(props) {
     let isFavorite = () => bottle.favorite === true || bottle.favorite === 'true'
     let isOpen = () => bottle.status === 'Opened'
     let dateString = () => {
-        let components = (bottle.opened_data || bottle.opened_date).split('-').map(c => parseInt(c))
+        let components = bottle.opened_date.split('-').map(c => parseInt(c))
         let date = new Date(components[2], components[0] - 1, components[1], 0, 0, 0, 0)
         return date.toLocaleDateString()
     }
@@ -42,7 +42,6 @@ export default function DetailScreen(props) {
         let dateStr = `${m >= 10 ? m : `0${m}`}-${d}-${y}`
         reference.update({
             status: 'Opened',
-            opened_data: dateStr,
             opened_date: dateStr
         })
     }
@@ -60,7 +59,7 @@ export default function DetailScreen(props) {
                             </View>
                         <Text style={styles.name}>{bottle.bottle_name}</Text>
                         <Text style={styles.subtitle}>{bottle.type_of_wine} • {bottle.vintage} Vintage</Text>
-                        <Text style={styles.subtitle}>{bottle.Region}, {bottle.Country}</Text>
+                        <Text style={styles.subtitle}>{bottle.region}, {bottle.country}</Text>
                         <View style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 6 }}>
                             <Icon.Button onPress={toggleFavorite} style={{ paddingHorizontal: 6, justifyContent: 'center', alignSelf: 'center' }} name={isFavorite() ? 'heart-dislike-outline' : 'heart'}>{isFavorite() ? 'Unfavorite' : 'Favorite'}</Icon.Button>
                         </View>
@@ -68,7 +67,7 @@ export default function DetailScreen(props) {
                             {!isOpen() ? <Icon.Button onPress={setOpened} style={{ paddingHorizontal: 6 }} name="wine">Mark opened</Icon.Button> : <Text style={{ fontStyle: 'italic', fontSize: 18 }}>Opened on {dateString()}</Text>}
                         </View>
                         <View style={{padding: 16, fontSize: 16}}>
-                            <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Varietal(s): </Text>{bottle.varierals}</Text>
+                            <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Varietal(s): </Text>{bottle.varietals}</Text>
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Age: </Text>{bottle.age} year{bottle.age !== 1 ? 's' : ''}</Text>
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Best served: </Text>{bottle.enjoy}</Text>
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Location: </Text>{bottle.location}</Text>
