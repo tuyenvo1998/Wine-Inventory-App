@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Button,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useFormik } from "formik";
 import DatePicker from "react-native-neat-date-picker";
@@ -67,16 +68,16 @@ export default function AddBottle(props) {
       typeOfWine: "",
       location: "",
       vintage: "",
-      varietals: "", /////
-      age: "", //////
-      country: "", /////
+      varietals: "",
+      age: "",
+      country: "",
       region: "",
       pairings: "",
-      enjoy: "", ///////,
-      favorite: false, /////
+      enjoy: "",
+      favorite: false,
       status: false,
       dateOpened: "",
-      barcode: "", ///////
+      barcode: "",
       id: "",
     },
     onSubmit: (values) => {
@@ -102,7 +103,7 @@ export default function AddBottle(props) {
         barcode: values.barcode,
         bottle_name: values.bottleName,
         location: values.location,
-        opened_date: values.status === 'Opened' ? values.dateOpened : '',
+        opened_date: values.status === "Opened" ? values.dateOpened : "",
         pairings: values.pairings.split(","),
         status: values.status ? "Opened" : "Not opened",
         type_of_wine: values.typeOfWine,
@@ -165,142 +166,146 @@ export default function AddBottle(props) {
 
   return (
     <ScrollView>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "#fff",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <View style={styles.buttonContainer}>
-            {/* <Text>{`${wineName} `}</Text> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "#fff",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <View style={styles.buttonContainer}>
+              {/* <Text>{`${wineName} `}</Text> */}
+            </View>
+            <Text style={styles.title}>Add Bottle</Text>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="bottle-wine-outline"
+                placeholder={
+                  values.bottleName === "" ? "Bottle name" : values.bottleName
+                }
+                onChangeText={handleChange("bottleName")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="glass-wine"
+                placeholder={
+                  values.typeOfWine === "" ? "Wine type" : values.typeOfWine
+                }
+                onChangeText={handleChange("typeOfWine")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="file-cabinet"
+                placeholder={
+                  values.location === "" ? "Location" : values.location
+                }
+                onChangeText={handleChange("location")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="fruit-grapes"
+                placeholder={
+                  values.varietals === "" ? "Varietals" : values.varietals
+                }
+                onChangeText={handleChange("varietals")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="calendar-month-outline"
+                placeholder={values.age === "" ? "Age" : values.age}
+                onChangeText={handleChange("age")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="timetable" // TO DO
+                placeholder={values.vintage === "" ? "Vintage" : values.vintage}
+                onChangeText={handleChange("vintage")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="google-maps"
+                placeholder={values.country === "" ? "Country" : values.country}
+                onChangeText={handleChange("country")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="earth"
+                placeholder={values.region === "" ? "Region" : values.region}
+                onChangeText={handleChange("region")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="food-steak"
+                placeholder={
+                  values.pairings === "" ? "Pairing(s)" : values.pairings
+                }
+                onChangeText={handleChange("pairings")}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <CustomTextInput
+                icon="thermometer"
+                placeholder={
+                  values.enjoy === ""
+                    ? "Preferred serving temperature"
+                    : values.enjoy
+                }
+                onChangeText={handleChange("enjoy")}
+              />
+            </View>
+            <View style={styles.checkboxContainer}>
+              <BouncyCheckbox
+                size={25}
+                fillColor={Colors.brand}
+                unfillColor="#FFFFFF"
+                iconStyle={{ borderColor: Colors.brand }}
+                onPress={() => setCheckboxState(!checkboxState)}
+              />
+              <Text style={styles.text}>Favorite?</Text>
+            </View>
+            <View style={styles.switchContainer}>
+              <Switch
+                trackColor={{ false: Colors.primary, true: Colors.brand }}
+                thumbColor={isEnabled ? Colors.primary : Colors.primary}
+                ios_backgroundColor={Colors.darkLight}
+                onChange={toggleSwitch}
+                value={isEnabled}
+              />
+              <Text style={styles.text}>Opened?</Text>
+              {showDate && isEnabled && (
+                <TouchableOpacity onPress={openDatePicker}>
+                  <Text style={styles.textDate}>{date}</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            <View style={styles.inputContainer}>
+              <DatePicker
+                isVisible={showDatePicker}
+                mode={"single"}
+                colorOptions={datePickerColors}
+                onCancel={onCancel}
+                onConfirm={onConfirm}
+              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <CustomButton label="Add" onPress={handleSubmit} />
+            </View>
           </View>
-          <Text style={styles.title}>Add Bottle</Text>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="bottle-wine-outline"
-              placeholder={
-                values.bottleName === "" ? "Bottle name" : values.bottleName
-              }
-              onChangeText={handleChange("bottleName")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="glass-wine"
-              placeholder={
-                values.typeOfWine === "" ? "Wine type" : values.typeOfWine
-              }
-              onChangeText={handleChange("typeOfWine")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="file-cabinet"
-              placeholder={
-                values.location === "" ? "Location" : values.location
-              }
-              onChangeText={handleChange("location")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="fruit-grapes"
-              placeholder={
-                values.varietals === "" ? "Varietals" : values.varietals
-              }
-              onChangeText={handleChange("varietals")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="calendar-month-outline"
-              placeholder={values.age === "" ? "Age" : values.age}
-              onChangeText={handleChange("age")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="timetable" // TO DO
-              placeholder={values.vintage === "" ? "Vintage" : values.vintage}
-              onChangeText={handleChange("vintage")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="google-maps"
-              placeholder={values.country === "" ? "Country" : values.country}
-              onChangeText={handleChange("country")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="earth"
-              placeholder={values.region === "" ? "Region" : values.region}
-              onChangeText={handleChange("region")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="food-steak"
-              placeholder={
-                values.pairings === "" ? "Pairing(s)" : values.pairings
-              }
-              onChangeText={handleChange("pairings")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
-              icon="thermometer"
-              placeholder={
-                values.enjoy === ""
-                  ? "Preferred serving temperature"
-                  : values.enjoy
-              }
-              onChangeText={handleChange("enjoy")}
-            />
-          </View>
-          <View style={styles.checkboxContainer}>
-            <BouncyCheckbox
-              size={25}
-              fillColor={Colors.brand}
-              unfillColor="#FFFFFF"
-              iconStyle={{ borderColor: Colors.brand }}
-              onPress={() => setCheckboxState(!checkboxState)}
-            />
-            <Text style={styles.text}>Favorite?</Text>
-          </View>
-          <View style={styles.switchContainer}>
-            <Switch
-              trackColor={{ false: Colors.primary, true: Colors.brand }}
-              thumbColor={isEnabled ? Colors.primary : Colors.primary}
-              ios_backgroundColor={Colors.darkLight}
-              onChange={toggleSwitch}
-              value={isEnabled}
-            />
-            <Text style={styles.text}>Opened?</Text>
-            {showDate && isEnabled && (
-              <TouchableOpacity onPress={openDatePicker}>
-                <Text style={styles.textDate}>{date}</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-          <View style={styles.inputContainer}>
-            <DatePicker
-              isVisible={showDatePicker}
-              mode={"single"}
-              colorOptions={datePickerColors}
-              onCancel={onCancel}
-              onConfirm={onConfirm}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <CustomButton label="Add" onPress={handleSubmit} />
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 }
@@ -333,6 +338,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: "#562B45",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   checkboxContainer: {
     flexDirection: "row",

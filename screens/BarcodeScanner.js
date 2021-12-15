@@ -46,13 +46,14 @@ const BarcodeScanner = () => {
         if (snapshot.exists()) {
           let bottleData = snapshot.val();
           setWineText(bottleData.bottle_name);
+          setBarcodeText(bottleData.barcode);
           setBottle(bottleData);
+        } else {
+          setBarcodeText(data);
         }
       });
 
-    setBarcodeText(parseInt(data).toString());
-
-    console.log("Type " + type + "\nData: " + data);
+    // console.log("Type " + type + "\nData: " + data);
   };
 
   // Check permissions and return the screens     temp screen when user hasn't given permission
