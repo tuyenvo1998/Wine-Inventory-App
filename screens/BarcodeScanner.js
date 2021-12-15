@@ -41,7 +41,7 @@ const BarcodeScanner = () => {
       .database()
       .ref()
       .child("barcode_data")
-      .child(data)
+      .child(parseInt(data).toString())
       .once("value", (snapshot) => {
         if (snapshot.exists()) {
           let bottleData = snapshot.val();
@@ -50,7 +50,7 @@ const BarcodeScanner = () => {
         }
       });
 
-    setBarcodeText(data);
+    setBarcodeText(parseInt(data).toString());
 
     console.log("Type " + type + "\nData: " + data);
   };
