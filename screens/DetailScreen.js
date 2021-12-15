@@ -71,7 +71,7 @@ export default function DetailScreen(props) {
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Age: </Text>{bottle.age} year{bottle.age !== 1 ? 's' : ''}</Text>
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Best served: </Text>{bottle.enjoy}</Text>
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Location: </Text>{bottle.location}</Text>
-                            <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Pairing(s): </Text>{bottle.pairing.map((p, i, arr) => <Text key={p} style={{textTransform: i === 0 ? 'capitalize' : undefined}}>{p}{i === arr.length - 1 ? '' : ', '}</Text>)}</Text>
+                            <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Pairing(s): </Text>{(bottle.pairing || bottle.pairings).map((p, i, arr) => <Text key={p} style={{textTransform: i === 0 ? 'capitalize' : undefined}}>{p}{i === arr.length - 1 ? '' : ', '}</Text>)}</Text>
                         </View>
                         {bottle.barcode ? <Text style={styles.upc}>UPC: {bottle.barcode}</Text> : null}
                     </ScrollView>
