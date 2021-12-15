@@ -97,15 +97,16 @@ export default function AddBottle(props) {
       console.log(`Barcode: ${values.barcode}`);
       console.log(`ID: ${values.id}`);
 
-      let bottle = {
+      let newBottle = {
         region: values.region,
         barcode: values.barcode,
         bottle_name: values.bottleName,
         location: values.location,
-        opened_date: values.dateOpened,
+        opened_date: values.status === 'Opened' ? values.dateOpened : '',
         pairings: values.pairings.split(","),
         status: values.status ? "Opened" : "Not opened",
         type_of_wine: values.typeOfWine,
+        image: bottle.image || "",
         vintage: values.vintage,
         varietals: values.varietals,
         age: values.age,
@@ -121,10 +122,10 @@ export default function AddBottle(props) {
         .child("storage")
         .child(firebase.auth().currentUser.uid)
         .child(values.id)
-        .set(bottle, (error) => {
+        .set(newBottle, (error) => {
           if (error === null) {
             alert("Bottle added!");
-            navigation.navigate("Main");
+            navigation.navigate("Home");
           } else {
             alert("Error, bottle was not added.");
             console.error(error);
