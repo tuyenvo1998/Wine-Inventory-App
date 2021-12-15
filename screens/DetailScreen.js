@@ -7,9 +7,9 @@ import Icon from 'react-native-vector-icons/Ionicons'
 export default function DetailScreen(props) {
     const dimensions = useWindowDimensions()
     const image = { width: dimensions.width / 2, height: dimensions.width / 2 }
-    const barcode = props.route.params.barcode.toString()
+    const id = props.route.params.id.toString()
     const [bottle, setBottle] = useState(null)
-    const reference = firebase.database().ref().child('storage').child(firebase.auth().currentUser.uid).child(barcode)
+    const reference = firebase.database().ref().child('storage').child(firebase.auth().currentUser.uid).child(id)
     let isFavorite = () => bottle.favorite === true || bottle.favorite === 'true'
     let isOpen = () => bottle.status === 'Opened'
     let dateString = () => {
@@ -73,7 +73,7 @@ export default function DetailScreen(props) {
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Location: </Text>{bottle.location}</Text>
                             <Text style={styles.detail}><Text style={{ fontWeight: 'bold' }}>Pairing(s): </Text>{bottle.pairing.map((p, i, arr) => <Text key={p} style={{textTransform: i === 0 ? 'capitalize' : undefined}}>{p}{i === arr.length - 1 ? '' : ', '}</Text>)}</Text>
                         </View>
-                        <Text style={styles.upc}>UPC: {bottle.barcode}</Text>
+                        {bottle.barcode ? <Text style={styles.upc}>UPC: {bottle.barcode}</Text> : null}
                     </ScrollView>
                 </View>
             </SafeAreaView>

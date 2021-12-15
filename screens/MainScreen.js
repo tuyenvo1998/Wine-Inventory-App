@@ -106,7 +106,7 @@ export default class MainScreen extends React.Component {
             <ImageBackground source={require('./../assets/background.jpg')} style={styles.background}>
                 <SafeAreaView style={styles.safeArea}>
                     <View style={styles.listContainer}>
-                        <FlatList data={[...(this.state.bottles || []), {__spacer: true}]} keyExtractor={(item, i) => item.__spacer ? "spacer" : (item.barcode || i.toString())} renderItem={({ item }) => item.__spacer ? <View style={{height: 200}}/> : <BottleView bottle={item} />} />
+                        <FlatList data={[...(this.state.bottles || []), {__spacer: true}]} keyExtractor={(item, i) => item.__spacer ? "spacer" : (item.id || i.toString())} renderItem={({ item }) => item.__spacer ? <View style={{height: 200}}/> : <BottleView bottle={item} />} />
                     </View>
                 </SafeAreaView>
 
