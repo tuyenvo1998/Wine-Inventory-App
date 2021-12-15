@@ -26,7 +26,7 @@ export default function App() {
         {/*<Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />*/}
         <Stack.Screen options={{ headerShown: true, headerTransparent: true, headerTitle: '' }} name="Home" component={MainScreen} />
         <Stack.Screen options={{ headerShown: true, headerTransparent: true, headerTitle: '' }} name="Bottle Detail" component={DetailScreen}/>
-        <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+        <Stack.Screen name="BarcodeScanner" options={{ title: 'Scan', headerTransparent: true, headerTitle: 'Scan', headerTintColor: 'white'}} component={BarcodeScanner} />
         <Stack.Screen
           options={{ title: "" }}
           name="AddBottleScreen"
