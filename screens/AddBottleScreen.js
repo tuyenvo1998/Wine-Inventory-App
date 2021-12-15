@@ -80,6 +80,7 @@ export default function AddBottle(props) {
       id: "",
     },
     onSubmit: (values) => {
+      console.log("*** ADDING BOTTLE ***");
       console.log(`Bottle name: ${values.bottleName}`);
       console.log(`Type of wine: ${values.typeOfWine}`);
       console.log(`Location: ${values.location}`);
@@ -179,81 +180,87 @@ export default function AddBottle(props) {
           <View style={styles.inputContainer}>
             <CustomTextInput
               icon="bottle-wine-outline"
-              placeholder="Bottle name"
-              value={values.bottle}
+              placeholder={
+                values.bottleName === "" ? "Bottle name" : values.bottleName
+              }
               onChangeText={handleChange("bottleName")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
               icon="glass-wine"
-              placeholder="Wine type"
+              placeholder={
+                values.typeOfWine === "" ? "Wine type" : values.typeOfWine
+              }
               onChangeText={handleChange("typeOfWine")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
               icon="file-cabinet"
-              placeholder="Location"
+              placeholder={
+                values.location === "" ? "Location" : values.location
+              }
               onChangeText={handleChange("location")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
-              icon="" // TO DO
-              placeholder="Vintage year"
-              onChangeText={handleChange("vintage")}
-            />
-          </View>
-          <View style={styles.inputContainer}>
-            <CustomTextInput
               icon="fruit-grapes"
-              placeholder="Varietals"
+              placeholder={
+                values.varietals === "" ? "Varietals" : values.varietals
+              }
               onChangeText={handleChange("varietals")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
               icon="calendar-month-outline"
-              placeholder="Age"
+              placeholder={values.age === "" ? "Age" : values.age}
               onChangeText={handleChange("age")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
+              icon="timetable" // TO DO
+              placeholder={values.vintage === "" ? "Vintage" : values.vintage}
+              onChangeText={handleChange("vintage")}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <CustomTextInput
               icon="google-maps"
-              placeholder="Country"
+              placeholder={values.country === "" ? "Country" : values.country}
               onChangeText={handleChange("country")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
               icon="earth"
-              placeholder="Region"
+              placeholder={values.region === "" ? "Region" : values.region}
               onChangeText={handleChange("region")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
               icon="food-steak"
-              placeholder="Pairing(s)"
+              placeholder={
+                values.pairings === "" ? "Pairing(s)" : values.pairings
+              }
               onChangeText={handleChange("pairings")}
             />
           </View>
           <View style={styles.inputContainer}>
             <CustomTextInput
               icon="thermometer"
-              placeholder="Preferred serving temperature"
+              placeholder={
+                values.enjoy === ""
+                  ? "Preferred serving temperature"
+                  : values.enjoy
+              }
               onChangeText={handleChange("enjoy")}
             />
           </View>
-          {/* <View style={styles.checkboxContainer}>
-            <CheckBox
-              value={isFavorite}
-              onValueChange={setIsFavorite}
-              style={styles.checkbox}
-            />
-          </View> */}
           <View style={styles.checkboxContainer}>
             <BouncyCheckbox
               size={25}
@@ -325,9 +332,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: "#562B45",
-  },
-  checkbox: {
-    alignSelf: "center",
   },
   checkboxContainer: {
     flexDirection: "row",
