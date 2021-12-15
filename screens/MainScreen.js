@@ -47,9 +47,7 @@ export default class MainScreen extends React.Component {
 
     componentDidMount() {
         this.props.navigation.setOptions({
-            headerLeft: () => <Icon.Button name="sign-out-alt" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => firebase.auth().signOut().then(() => this.props.navigation.replace('Login'))}><Text style={{ fontSize: 15 }} /></Icon.Button>,
-            headerRight: () => <Icon.Button name="user-cog" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => { }}><Text style={{ fontSize: 15 }} /></Icon.Button>
-        })
+            headerLeft: () => <Icon.Button name="sign-out-alt" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => firebase.auth().signOut().then(() => this.props.navigation.replace('Login'))}><Text style={{ fontSize: 15 }} /></Icon.Button>        })
         this.reference = firebase.database().ref().child('storage').child(firebase.auth().currentUser.uid)
         this.reference.on('value', this.loadBottles)
     }
