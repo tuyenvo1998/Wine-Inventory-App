@@ -122,46 +122,25 @@ export default class MainScreen extends React.Component {
 
                 <View style={[styles.container, this.props.style]}>
                     <TouchableWithoutFeedback onPress={() => this.goToBarcodeScanner()}>
-                        <Animated.View
-                            style={[styles.button, styles.secondary, heartStyle, opacity]}
-                        >
+                        <Animated.View style={[styles.button, styles.secondary, heartStyle, opacity]} >
                             <AntDesign name="camera" size={20} color="#F02A4B" />
                         </Animated.View>
                     </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback onPress={() => this.goToAddBottle()}>
-                        <Animated.View
-                            style={[styles.button, styles.secondary, thumbStyle, opacity]}
-                        >
+                        <Animated.View style={[styles.button, styles.secondary, thumbStyle, opacity]}>
                             <Entypo name="text" size={20} color="#F02A4B" />
+                        </Animated.View>
+                    </TouchableWithoutFeedback>
+
+                    <TouchableWithoutFeedback onPress={this.toggleMenu}>
+                        <Animated.View style={[styles.button, styles.menu, rotation]}>
+                            <AntDesign name="plus" size={24} color="#FFF" />
                         </Animated.View>
                     </TouchableWithoutFeedback>
                 </View>
             </ImageBackground>
         )
-
-        const heartStyle = {
-            transform: [
-                { scale: this.animation },
-                {
-                    translateY: this.animation.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, -200],
-                    }),
-                },
-            ],
-        };
-
-        const rotation = {
-            transform: [
-                {
-                    rotate: this.animation.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: ["0deg", "45deg"],
-                    }),
-                },
-            ],
-        };
     }
 }
 
