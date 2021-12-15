@@ -11,12 +11,14 @@ import {
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Colors } from "./../components/styles";
 import { useNavigation } from "@react-navigation/core";
+import firebase from "firebase";
 
 const BarcodeScanner = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [barcodeText, setBarcodeText] = useState("Not yet scanned");
   const [wineText, setWineText] = useState("Unknown");
+  const [bottle, setBottle] = useState(null);
   const navigation = useNavigation();
 
   // Request camera permission
@@ -34,7 +36,22 @@ const BarcodeScanner = () => {
   // What happens when we scan the barcode
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+
+    firebase // TO DO: check database to see if this bottle already exists
+      .database()
+      .ref()
+      .child("barcode_data")
+      .child(data)
+      .once("value", (snapshot) => {
+        if (snapshot.exists()) {
+          let bottleData = snapshot.val();
+          setWineText(bottleData.bottle_name);
+          setBottle(bottleData);
+        }
+      });
+
     setBarcodeText(data);
+
     console.log("Type " + type + "\nData: " + data);
   };
 
@@ -51,9 +68,6 @@ const BarcodeScanner = () => {
     return (
       <View style={styles.container}>
         <Text style={{ margin: 10 }}>No access to camera.</Text>
-        {/* <Pressable style={styles.button} onPress={() => askForCameraPermission()}>
-          <Text>Allow Camera</Text>
-        </Pressable> */}
         <Button
           style={styles.button}
           title={"Allow Camera"}
@@ -82,9 +96,7 @@ const BarcodeScanner = () => {
           <View style={{ alignItems: "center" }}>
             <View style={styles.containerText}>
               <Text style={styles.mainText}>Barcode: {barcodeText}</Text>
-              <Text style={styles.mainText}>
-                Wine: 19 Crimes Snoop Cali Red
-              </Text>
+              <Text style={styles.mainText}>Wine: {wineText}</Text>
             </View>
             <View
               style={{
@@ -103,7 +115,11 @@ const BarcodeScanner = () => {
                 <View style={styles.buttonContainer}>
                   <Button
                     title={"Add Bottle"}
-                    onPress={() => navigation.navigate("AddBottleScreen")}
+                    onPress={() =>
+                      navigation.navigate("AddBottleScreen", {
+                        bottle: bottle,
+                      })
+                    }
                     color="#fff"
                   />
                 </View>
@@ -130,6 +146,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.brand,
     alignSelf: "flex-start",
     margin: 10,
+    padding: 2,
+    borderRadius: 7,
   },
   buttonsContainer: {
     alignContent: "center",

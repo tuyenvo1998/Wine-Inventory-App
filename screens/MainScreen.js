@@ -31,7 +31,9 @@ export default class MainScreen extends React.Component {
   }
 
   goToAddBottle(event) {
-    this.props.navigation.navigate("AddBottleScreen");
+    this.props.navigation.navigate("AddBottleScreen", {
+      bottle: null,
+    });
   }
 
   render() {
