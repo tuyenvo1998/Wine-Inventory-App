@@ -16,6 +16,16 @@ export default class MainScreen extends React.Component {
 
     animation = new Animated.Value(0);
 
+    goToBarcodeScanner(event) {
+        this.props.navigation.navigate("BarcodeScanner");
+    }
+
+    goToAddBottle(event) {
+        this.props.navigation.navigate("AddBottleScreen", {
+            bottle: null,
+        });
+    }
+
     toggleMenu = () => {
         const toValue = this.open ? 0 : 1;
 
@@ -32,12 +42,12 @@ export default class MainScreen extends React.Component {
 
     loadBottles(snap) {
         let obj = snap.val()
-        this.setState({bottles: Object.getOwnPropertyNames(obj).map(n => obj[n])})
+        this.setState({ bottles: Object.getOwnPropertyNames(obj).map(n => obj[n]) })
     }
 
     componentDidMount() {
         this.props.navigation.setOptions({
-            headerLeft: () => <Icon.Button name="sign-out-alt" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => firebase.auth().signOut().then(() => this.props.navigation.replace('Login'))}><Text style={{fontSize: 15}}/></Icon.Button>,
+            headerLeft: () => <Icon.Button name="sign-out-alt" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => firebase.auth().signOut().then(() => this.props.navigation.replace('Login'))}><Text style={{ fontSize: 15 }} /></Icon.Button>,
             headerRight: () => <Icon.Button name="user-cog" backgroundColor="transparent" underlayColor="transparent" color="#007AFF" onPress={() => { }}><Text style={{ fontSize: 15 }} /></Icon.Button>
         })
         this.reference = firebase.database().ref().child('storage').child(firebase.auth().currentUser.uid)
@@ -106,31 +116,52 @@ export default class MainScreen extends React.Component {
             <ImageBackground source={require('./../assets/background.jpg')} style={styles.background}>
                 <SafeAreaView style={styles.safeArea}>
                     <View style={styles.listContainer}>
-                        <FlatList data={[...(this.state.bottles || []), {__spacer: true}]} keyExtractor={(item, i) => item.__spacer ? "spacer" : (item.id || i.toString())} renderItem={({ item }) => item.__spacer ? <View style={{height: 200}}/> : <BottleView bottle={item} />} />
+                        <FlatList data={[...(this.state.bottles || []), { __spacer: true }]} keyExtractor={(item, i) => item.__spacer ? "spacer" : (item.id || i.toString())} renderItem={({ item }) => item.__spacer ? <View style={{ height: 200 }} /> : <BottleView bottle={item} />} />
                     </View>
                 </SafeAreaView>
 
                 <View style={[styles.container, this.props.style]}>
-                    <TouchableWithoutFeedback>
-                        <Animated.View style={[styles.button, styles.secondary, heartStyle, opacity]} >
+                    <TouchableWithoutFeedback onPress={() => this.goToBarcodeScanner()}>
+                        <Animated.View
+                            style={[styles.button, styles.secondary, heartStyle, opacity]}
+                        >
                             <AntDesign name="camera" size={20} color="#F02A4B" />
                         </Animated.View>
                     </TouchableWithoutFeedback>
 
-                    <TouchableWithoutFeedback>
-                        <Animated.View style={[styles.button, styles.secondary, thumbStyle, opacity]}>
+                    <TouchableWithoutFeedback onPress={() => this.goToAddBottle()}>
+                        <Animated.View
+                            style={[styles.button, styles.secondary, thumbStyle, opacity]}
+                        >
                             <Entypo name="text" size={20} color="#F02A4B" />
-                        </Animated.View>
-                    </TouchableWithoutFeedback>
-
-                    <TouchableWithoutFeedback onPress={this.toggleMenu}>
-                        <Animated.View style={[styles.button, styles.menu, rotation]}>
-                            <AntDesign name="plus" size={24} color="#FFF" />
                         </Animated.View>
                     </TouchableWithoutFeedback>
                 </View>
             </ImageBackground>
-        );
+        )
+
+        const heartStyle = {
+            transform: [
+                { scale: this.animation },
+                {
+                    translateY: this.animation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, -200],
+                    }),
+                },
+            ],
+        };
+
+        const rotation = {
+            transform: [
+                {
+                    rotate: this.animation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ["0deg", "45deg"],
+                    }),
+                },
+            ],
+        };
     }
 }
 

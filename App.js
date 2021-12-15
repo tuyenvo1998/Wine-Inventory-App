@@ -10,7 +10,8 @@ import WelcomeScreen from './screens/WelcomeScreen';
 import TestingScreen from './screens/TestingScreen';
 import MainScreen from './screens/MainScreen';
 import DetailScreen from './screens/DetailScreen';
-
+import BarcodeScanner from "./screens/BarcodeScanner";
+import AddBottleScreen from "./screens/AddBottleScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,12 @@ export default function App() {
         {/*<Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />*/}
         <Stack.Screen options={{ headerShown: true, headerTransparent: true, headerTitle: '' }} name="Home" component={MainScreen} />
         <Stack.Screen options={{ headerShown: true, headerTransparent: true, headerTitle: '' }} name="Bottle Detail" component={DetailScreen}/>
+        <Stack.Screen name="BarcodeScanner" component={BarcodeScanner} />
+        <Stack.Screen
+          options={{ title: "" }}
+          name="AddBottleScreen"
+          component={AddBottleScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -33,8 +40,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
