@@ -18,7 +18,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator >
         {/* options={{ headerShown: false }}  USE THIS TO HIDE NAVIGATION HEADER */}
-        <Stack.Screen options={{ headerShown: false }, {}} name="Login" component={LoginScreen} /> 
+        <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} /> 
         <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
         <Stack.Screen options={{ headerShown: false }} name="Register" component={RegisterScreen} />
         <Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />

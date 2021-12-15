@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         borderLeftColor: 'lightgray',
         borderLeftWidth: 0.4,
-        width: '100%'
+        width: '100%', 
     },
     nameContainer: {
         flexDirection: 'column',
@@ -26,17 +26,21 @@ const styles = StyleSheet.create({
         flex: 1,
         flexWrap: 'wrap',
         color: 'black',
-        fontSize: 18,
-        fontWeight: '300',
-        fontVariant: ['small-caps']
+        fontSize: 20,
+        fontWeight: 'bold',
+        fontVariant: ['small-caps'],
+        fontFamily: "Cochin"
     },
     detail: {
         color: 'black',
         fontSize: 14,
-        textTransform: 'capitalize'
+        textTransform: 'capitalize', 
+        
     },
     status: {
-        textAlign: 'right'
+        textAlign: 'right',
+        fontFamily: "Cochin",
+        color: 'blue'
     }
 })
 
@@ -50,9 +54,10 @@ const BottleView = (props) => {
                 <View style={styles.nameContainer}>
                     <Text style={styles.name}>{props.bottle.bottle_name}</Text>
                 </View>
-                <Text style={styles.detail}>{props.bottle.type_of_wine || 'Unknown Type'}</Text>
-                <Text style={styles.detail}>{props.bottle.vintage} Vintage</Text>
-                <Text style={[styles.detail, styles.status]}>{props.bottle.status}</Text>
+                {/* <Text style={styles.detail}>{props.bottle.type_of_wine || 'Unknown Type'} </Text>
+                <Text style={styles.detail}>Vintage: {props.bottle.vintage} </Text> */}
+                <Text style={styles.detail}>{props.bottle.type_of_wine || 'Unknown Type'} | {props.bottle.vintage} | {props.bottle.Region}</Text>
+                <Text style={[styles.detail, styles.status]}>{props.bottle.status}</Text>   
             </View>
         </View>
     </TouchableOpacity>
