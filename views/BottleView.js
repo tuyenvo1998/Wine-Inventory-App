@@ -60,7 +60,7 @@ const BottleView = (props) => {
         .then((url) => setBottleImage(url));
     else setBottleImage(props.bottle.image);
   });
-  return <TouchableOpacity style={styles.root} onPress={() => navigation.navigate("Bottle Detal", {id: props.bottle.id})}>
+  return <TouchableOpacity style={styles.root} onPress={() => navigation.navigate("Bottle Detail", {id: props.bottle.id})}>
     <View style={styles.row}>
       <View style={styles.imageContainer}>
         <Image source={bottleImage ? { uri: bottleImage } : require('../assets/wine_bottle_2.webp')} style={styles.image} resizeMode="contain" />
