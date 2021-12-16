@@ -12,8 +12,9 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Image,
+  ActivityIndicator,
 } from "react-native";
-import ImageUploader from '../util/ImageUploader'
+import ImageUploader from "../util/ImageUploader";
 import { useFormik } from "formik";
 import DatePicker from "react-native-neat-date-picker";
 import { useNavigation } from "@react-navigation/core";
@@ -31,6 +32,8 @@ export default function AddBottle(props) {
   const navigation = useNavigation();
   const [checkboxState, setCheckboxState] = useState(false);
   const [hasImage, setHasImage] = useState(false);
+  const [image, setImage] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isEnabled, setIsEnabled] = useState(false);
   const [showDate, setShowDate] = useState(false);
@@ -68,7 +71,6 @@ export default function AddBottle(props) {
 
   const { handleChange, handleSubmit, setFieldValue, values } = useFormik({
     initialValues: {
-      // TO DO: implement image picker
       bottleName: "",
       typeOfWine: "",
       location: "",
@@ -101,19 +103,20 @@ export default function AddBottle(props) {
       console.log(`Favorite: ${values.favorite}`);
       console.log(`Status: ${values.status}`);
       console.log(`Date opened: ${values.dateOpened}`);
-      // console.log(`Image URI: ${values.imageUri}`);  //TO DO: add image
+      console.log(`Image URI: ${values.imageUri}`); //TO DO: add image
       console.log(`Barcode: ${values.barcode}`);
       console.log(`ID: ${values.id}`);
 
-      /* Uploading image */                      /*Image URI from picker*/
-      let storageUri = await ImageUploader.upload(values.image, values.id)
+      /* Uploading image */ /*Image URI from picker*/
+      setIsLoading(true);
+      let storageUri = await ImageUploader.upload(values.imageUri, values.id);
 
       let newBottle = {
         region: values.region,
         barcode: values.barcode,
         bottle_name: values.bottleName,
         location: values.location,
-        opened_date: values.status === "Opened" ? values.dateOpened : "",
+        opened_date: values.status ? values.dateOpened : "",
         pairings: values.pairings.split(","),
         status: values.status ? "Opened" : "Not opened",
         type_of_wine: values.typeOfWine,
@@ -125,7 +128,7 @@ export default function AddBottle(props) {
         enjoy: values.enjoy,
         favorite: values.favorite,
         id: values.id,
-        // image: values.imageUri,  //TO DO: add image
+        image: storageUri,
       };
 
       firebase
@@ -136,6 +139,7 @@ export default function AddBottle(props) {
         .child(values.id)
         .set(newBottle, (error) => {
           if (error === null) {
+            setIsLoading(false);
             alert("Bottle added!");
             navigation.navigate("Home");
           } else {
@@ -185,13 +189,39 @@ export default function AddBottle(props) {
       return;
     }
 
-    pickerResult = await ImagePicker.launchImageLibraryAsync();
+    pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: false,
+    });
+
     console.log(pickerResult);
     setHasImage(true);
-
-    /* CALL UPLOAD HERE */
-    // setFieldValue("imageUri", pickerResult.uri);   // set the image for formik
+    setFieldValue("imageUri", pickerResult.uri);
+    setImage(pickerResult.uri);
+    console.log(pickerResult.uri);
   };
+
+  const clearImage = () => {
+    setHasImage(false);
+    setFieldValue("imageUri", "");
+    setImage(null);
+  };
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ActivityIndicator size="large" color={Colors.brand} />
+        <Text style={styles.text}>Uploading bottle...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView>
@@ -253,7 +283,7 @@ export default function AddBottle(props) {
             </View>
             <View style={styles.inputContainer}>
               <CustomTextInput
-                icon="timetable" // TO DO
+                icon="timetable"
                 placeholder={values.vintage === "" ? "Vintage" : values.vintage}
                 onChangeText={handleChange("vintage")}
               />
@@ -309,11 +339,23 @@ export default function AddBottle(props) {
                   size={20}
                   onPress={() => openImagePickerAsync()}
                 />
+                {hasImage && (
+                  <IconButton
+                    icon="cancel"
+                    color={Colors.brand}
+                    size={20}
+                    onPress={() => clearImage()}
+                  />
+                )}
               </View>
             </View>
-            {/* TO DO: IMAGE PICKER */}
-            <Image source={{ uri: values.imageUri }} />
-            <Text style={styles.text}> Image: {values.imageUri}</Text>
+            {hasImage && (
+              <Image
+                source={{ uri: `${image}` }}
+                style={{ width: 200, height: 300 }}
+                resizeMode="contain"
+              />
+            )}
             <View style={styles.switchContainer}>
               <Switch
                 trackColor={{ false: Colors.primary, true: Colors.brand }}
@@ -348,6 +390,9 @@ export default function AddBottle(props) {
   );
 }
 
+// {isLoading && (
+//   <ActivityIndicator size="large" color={Colors.brand} />
+// )}
 const datePickerColors = {
   headerColor: Colors.darkLight,
   backgroundColor: Colors.primary,
