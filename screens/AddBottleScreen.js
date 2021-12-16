@@ -53,6 +53,7 @@ export default function AddBottle(props) {
       setFieldValue("enjoy", bottle.enjoy);
       setFieldValue("favorite", bottle.favorite);
       setFieldValue("barcode", bottle.barcode);
+      setFieldValue("image", bottle.image);
       setFieldValue("id", Math.random().toString(36).substring(2, 10));
     } else {
       setFieldValue("barcode", "");
@@ -99,7 +100,7 @@ export default function AddBottle(props) {
       console.log(`Favorite: ${values.favorite}`);
       console.log(`Status: ${values.status}`);
       console.log(`Date opened: ${values.dateOpened}`);
-      console.log(`Image URI: ${values.imageUri}`);
+      // console.log(`Image URI: ${values.imageUri}`);  //TO DO: add image
       console.log(`Barcode: ${values.barcode}`);
       console.log(`ID: ${values.id}`);
 
@@ -120,7 +121,7 @@ export default function AddBottle(props) {
         enjoy: values.enjoy,
         favorite: values.favorite,
         id: values.id,
-        image: values.imageUri,
+        // image: values.imageUri,  //TO DO: add image
       };
 
       firebase
@@ -183,7 +184,9 @@ export default function AddBottle(props) {
     pickerResult = await ImagePicker.launchImageLibraryAsync();
     console.log(pickerResult);
     setHasImage(true);
-    setFieldValue("imageUri", pickerResult.uri);
+
+    /* CALL UPLOAD HERE */
+    // setFieldValue("imageUri", pickerResult.uri);   // set the image for formik
   };
 
   return (
@@ -201,14 +204,6 @@ export default function AddBottle(props) {
             }}
           >
             <Text style={styles.title}>Add Bottle</Text>
-            {/* <View style={styles.buttonContainer}>
-              <IconButton
-                icon="camera"
-                color={Colors.brand}
-                size={20}
-                onPress={() => openImagePickerAsync()}
-              />
-            </View> */}
             <View style={styles.inputContainer}>
               <CustomTextInput
                 icon="bottle-wine-outline"
