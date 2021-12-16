@@ -1,0 +1,19 @@
+[
+    {
+        "barcode_data": [
+            {"barcode": "5882800131", "bottle_name": "Bodegas Navalon Anciano", "vintage": "2013", "age": "7", "color": "red", "varierals": "Tempranillo - Spanish Black Grape", "Country": "Spain", "Region": "Castlilla La Mancha", "pairing": ["veal", "mushroom", "pork", "lamb"], "image": "https://www.liquormarts.ca/sites/mlcc_public_website/files/styles/product_fullsize/public/product/21355_24b270ed8854105643ab32de7625c5b5_0.png"},
+            {"barcode": "8787263336", "bottle_name": "Stella Rosa Black", "vintage": "1917", "age": "104", "color": "red", "varierals": "Brachetto", "Country": "Italy", "Region": "Brachetto d'Acqui", "pairing": ["beel", "pasta", "lamb", "deer"], "image": ""}
+        ],
+        "registered_users": [
+            {"storage":
+                [
+                    {"barcode": "8787263336", "bottle_name": "Stella Rosa Black", "vintage": "1917", "age": "104", "color": "red", "varierals": "Brachetto", "Country": "Italy", "Region": "Brachetto d'Acqui", "pairing": ["beel", "pasta", "lamb", "deer"], "image": "", "status": true, "opened_data": "04-23-2021", "enjoy": "Room Tempurate or Refridgerated", "favorite": true, "location": "Placed in cellar number 5 located in the wine room."}
+                ],
+                "favorite_wines":
+                [
+                    {"barcode": "8787263336", "bottle_name": "Stella Rosa Black", "vintage": "1917", "age": "104", "color": "red", "varierals": "Brachetto", "Country": "Italy", "Region": "Brachetto d'Acqui", "pairing": ["beel", "pasta", "lamb", "deer"], "image": "", "status": true, "opened_data": "04-23-2021", "enjoy": "Room Tempurate or Refridgerated", "favorite": true, "location": "Placed in cellar number 5 located in the wine room."}
+                ]
+            }
+        ]
+    }
+]
