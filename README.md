@@ -8,3 +8,5 @@ Wine Inventory will be built to perform some tasks such as scan and add the wine
 Wine Inventory app will be made mostly for personal and general uses and small business size use only. The final product will be publicly available on App Store or Google Play Store with my purchase required. In addition, this app is particularly designed per the requirements from Christopher Conly PhD.
 # FEATURES AND FUNCTIONS
 The app will allow users to input their bottles information by scanning the bar code or if the bar code can’t be found then users can manually input the information which includes winery or winemaker, wine name, primary grape varietal, year produced, style, a picture of it, especially it’s storage location so user can easily find it, bottle’s status (opened/unopened) as well as opened date. Afterwards, users will be able to have a list of bottles they have in storage, sort them by style, opened date, aging, etc...
+# IMPORTANT NOTES:
+LT-Merged-1 is the branch that contains the completed code for this project. 
