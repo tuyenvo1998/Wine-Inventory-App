@@ -13,6 +13,7 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
+import ImageUploader from '../util/ImageUploader'
 import { useFormik } from "formik";
 import DatePicker from "react-native-neat-date-picker";
 import { useNavigation } from "@react-navigation/core";
@@ -84,7 +85,7 @@ export default function AddBottle(props) {
       barcode: "",
       id: "",
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log("*** ADDING BOTTLE ***");
       console.log(`Bottle name: ${values.bottleName}`);
       console.log(`Type of wine: ${values.typeOfWine}`);
@@ -103,6 +104,9 @@ export default function AddBottle(props) {
       console.log(`Barcode: ${values.barcode}`);
       console.log(`ID: ${values.id}`);
 
+      /* Uploading image */                      /*Image URI from picker*/
+      let storageUri = await ImageUploader.upload(values.image, values.id)
+
       let newBottle = {
         region: values.region,
         barcode: values.barcode,
@@ -112,7 +116,7 @@ export default function AddBottle(props) {
         pairings: values.pairings.split(","),
         status: values.status ? "Opened" : "Not opened",
         type_of_wine: values.typeOfWine,
-        image: bottle.image || "",
+        image: storageUri,
         vintage: values.vintage,
         varietals: values.varietals,
         age: values.age,
