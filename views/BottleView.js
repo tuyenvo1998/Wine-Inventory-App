@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
   name: {
     flex: 1,
     flexWrap: 'wrap',
-    color: 'black',
-    fontSize: 20,
+    color: 'purple',
+    fontSize: 22,
     fontWeight: 'bold',
     fontVariant: ['small-caps'],
     fontFamily: "Cochin"
@@ -71,7 +71,8 @@ const BottleView = (props) => {
         </View>
         {/* <Text style={styles.detail}>{props.bottle.type_of_wine || 'Unknown Type'} </Text>
                 <Text style={styles.detail}>Vintage: {props.bottle.vintage} </Text> */}
-        <Text style={styles.detail}>{props.bottle.type_of_wine || 'Unknown Type'} | {props.bottle.vintage} | {props.bottle.Region}</Text>
+        <Text style={styles.detail}>{props.bottle.type_of_wine || 'Unknown Type'} • {props.bottle.vintage} • {props.bottle.region}, {props.bottle.country}</Text>
+        <Text style={styles.detail}>Location: {props.bottle.location}</Text>
         <Text style={[styles.detail, styles.status]}>{props.bottle.status}</Text>
       </View>
     </View>

@@ -91,14 +91,14 @@ export default function DetailScreen(props) {
   if (bottle === null)
     return (
       <ImageBackground
-        source={require("./../assets/background.jpg")}
+        source={require("./../assets/background_2.png")}
         style={styles.background}
       />
     );
 
   return (
     <ImageBackground
-      source={require("./../assets/background.jpg")}
+      source={require("./../assets/background_2.png")}
       style={styles.background}
     >
       <SafeAreaView style={styles.safeArea}>
